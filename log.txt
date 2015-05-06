@@ -4,4 +4,4 @@ Tasks: Created repo and started working on assignment
 
 Start: Mon, 6 May 2015 12:12:00 -0800
 End: Mon, 6 May 2015 16:20:00 -0800
-Tasks: Working on add video and delete portion
+Tasks: Working on add video and delete portion, created table in db
