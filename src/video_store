@@ -1,1 +1,14 @@
+<?php
+header('Location: http://web.engr.oregonstate.edu/~lagrewj/Assign4/Part2/video_store.php');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+//connecting to my osu onid sql server
+$mysqli = new mysqli("oniddb.cws.oregonstate.edu", "lagrewj-db", "", "lagrewj-db");
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+} 
+else {
+echo "Connection worked!<br>";
+}
+?>
