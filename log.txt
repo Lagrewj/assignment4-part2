@@ -1,3 +1,7 @@
 Start: Mon, 4 May 2015 16:12:00 -0800
 End: Mon, 4 May 2015 18:42:26 -0800
 Tasks: Created repo and started working on assignment
+
+Start: Mon, 6 May 2015 12:12:00 -0800
+End: Mon, 6 May 2015 16:20:00 -0800
+Tasks: Working on add video and delete portion
