@@ -5,3 +5,7 @@ Tasks: Created repo and started working on assignment
 Start: Mon, 6 May 2015 12:12:00 -0800
 End: Mon, 6 May 2015 16:20:00 -0800
 Tasks: Working on add video and delete portion, created table in db
+
+Start: Mon, 7 May 2015 14:12:00 -0800
+End: Mon, 7 May 2015 15:30:00 -0800
+Tasks: Finalized delete all and delete button functions, starting rent and return functions
