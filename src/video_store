@@ -8,7 +8,33 @@ $mysqli = new mysqli("oniddb.cws.oregonstate.edu", "lagrewj-db", "", "lagrewj-db
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 } 
-else {
-echo "Connection worked!<br>";
+if (isset($_POST['name'])) {
+	$nameCount = strlen($_POST['name']);
+	if($nameCount < 1) {
+		echo 'Please enter a movie name.';
+	} elseif (!is_numeric($_POST['length'])) {
+		echo 'Error: The length must be an integer in minutes!';
+	} else {
+		//prepared statement for adding video with name, category and length
+		if (!($stmt = $mysqli->prepare("INSERT INTO video_store_inventory(name, category, length) VALUES (?,?,?)"))) {
+	    echo "Error: Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+
+		$name = $_POST['name'];
+		$category = $_POST['category'];
+
+// -- delete video --
+//delete button pressed, delete row from database using prepared statement and redirect
+if(isset($_GET['deleted'])) {
+	$deleteID = $_GET['deleted'];
+	if (!($stmt = $mysqli->prepare("DELETE FROM video_store_inventory WHERE id = ?"))) {
+    echo "Error: Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+	}
+	if (!$stmt->bind_param("i", $deleteID)) {
+    echo "Error: Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+	}
+	if (!$stmt->execute()) {
+    echo "Error: Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+	} 
 }
 ?>
