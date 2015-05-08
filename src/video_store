@@ -83,4 +83,26 @@ if(isset($_GET['deleted'])) {
     echo "Error: Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 	} 
 }
+// -- rent and return video -- 
+//once user selected check out then prepared statement to update database 
+//and change status to checked out 
+if(isset($_GET['rented'])) {
+	$rentalID = $_GET['rented'];
+	$status = $_GET['status'];
+	$newStatus = NULL;
+	if ($status == 1) { 
+		$newStatus = 0;
+	} else {
+		$newStatus = 1;
+	}
+	if (!($stmt = $mysqli->prepare("UPDATE video_store_inventory SET rented = ? WHERE id = ?"))) {
+    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+	}
+	if (!$stmt->bind_param("ii", $newStatus, $rentalID)) {
+    echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+	}
+	if (!$stmt->execute()) {
+    echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+	} 
+}
 ?>
