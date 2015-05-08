@@ -113,3 +113,89 @@ if(isset($_GET['rented'])) {
 </form>
 
 <h2>Video Store Inventory</h2>
+
+<?php
+$category = NULL;
+
+// -- category filter and printing table --
+//ensured that when category is null, then to not show up on drop down menu
+//using prepared statement for list
+if (!($stmt = $mysqli->prepare("SELECT category FROM video_store_inventory WHERE category != '' GROUP BY category"))) {
+   echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+}
+if (!$stmt->execute()) {
+  	echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+}
+if (!$stmt->bind_result($category)) {
+    echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+}
+echo "<form action = 'video_store.php' method = 'GET'>";
+echo "<select name = 'filter'>";
+echo "<option value = All>All</option>";
+while ($stmt->fetch()) {
+	echo "<option value =" . $category . ">" . $category . "</option>";
+}
+echo "<input type = 'submit' value = 'Filter'>";
+echo "</form>";
+
+//ensures all data will printed out to the table
+$category_filter = 'All';
+//default will be all
+//if user selects a filter, then category_filter variable updated as category type via get method
+if(isset($_GET['filter'])) {
+	$category_filter = $_GET['filter'];
+} 
+//prepared statement for selecting filtered or all videos
+if($category_filter == 'All') {
+	if (!($stmt = $mysqli->prepare("SELECT id, name, category, length, rented FROM video_store_inventory ORDER BY name"))) {
+    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+	}
+} else {
+	if (!($stmt = $mysqli->prepare("SELECT id, name, category, length, rented FROM video_store_inventory WHERE category = ? ORDER BY name"))) {
+    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+	}
+	if (!$stmt->bind_param("s", $category_filter)) {
+    echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+	}
+}
+//delcaring variables for printing table 
+$out_id = NULL;
+$out_name = NULL;
+$out_cateory = NULL;
+$out_length = NULL;
+$out_rented = NULL;
+
+if (!$stmt->execute()) {
+  	echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+}
+
+if (!$stmt->bind_result($out_id, $out_name, $out_cateory, $out_length, $out_rented)) {
+    echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+}
+//printing table
+echo "<table border>";
+echo "<th>Name</th>";
+echo "<th>Category</th>";
+echo "<th>Length</th>";
+echo "<th>Status</th>";
+echo "<th>Status</th>";
+echo "<th>Delete</th>";
+//status checked in or checked out 
+while ($stmt->fetch()) {
+	if ($out_rented == 1) {
+		$status = "Checked in";
+	} else {
+		$status = "Checked out";
+	}
+echo "<tr>";
+echo "<td>" . $out_name . "</td>";
+echo "<td>" . $out_cateory . "</td>";
+echo "<td>" . $out_length . "</td>";
+echo "<td>" . $status . "</td>";
+echo "<td><a href='video_store.php?rented=$out_id&status=$out_rented'><button>Check in/out</button></a></td>";
+echo "<td><a href='video_store.php?deleted=$out_id'><button>Delete</button></a></td>";
+echo "</tr>";
+}
+echo "</table>";
+
+?>
