@@ -68,4 +68,19 @@ if(isset($_GET['deleted'])) {
     echo "Error: Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 	} 
 }
+//-- delete from db --
+//once delete button pressed query to delete id from database
+//using prepared statement to delete
+if(isset($_GET['deleted'])) {
+	$deleteID = $_GET['deleted'];
+	if (!($stmt = $mysqli->prepare("DELETE FROM video_store_inventory WHERE id = ?"))) {
+    echo "Error: Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+	}
+	if (!$stmt->bind_param("i", $deleteID)) {
+    echo "Error: Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+	}
+	if (!$stmt->execute()) {
+    echo "Error: Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+	} 
+}
 ?>
