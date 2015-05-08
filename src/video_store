@@ -105,6 +105,22 @@ if(isset($_GET['rented'])) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 	} 
 }
+
+// -- delete all Videos --
+//when user pressed delete all button, delete the entire database
+//using query to delete all
+if(isset($_POST['delete_all'])) {
+	!$mysqli->query("DELETE FROM video_store_inventory");
+}
+// -- add video form --
+//form to add video
+echo "<h2>Add a video</h2>";
+echo "<form action = 'video_store.php' method = 'post'>";
+echo "Name: <input name = 'name' type = 'text'><br>";
+echo "Cateory: <input name = 'category' type = 'text'><br>";
+echo "Length: <input name = 'length' type = 'text'><br>";
+echo "<input name = 'add_movie' type = 'submit' value = 'Add Video'>";
+echo "</form>";
 ?>
 <h2>Delete All Videos</h2>
 <form action = 'video_store.php' method = 'post'>
