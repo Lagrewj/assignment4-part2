@@ -13,3 +13,7 @@ Tasks: Finalized delete all and delete button functions, starting rent and retur
 Start: Fri, 8 May 2015 08:00:00 -0800
 End: Fri, 8 May 2015 10:30:00 -0800
 Tasks: Worked on logic of adding video with invalid parameters and finished up forms and cat filter
+
+Start: Fri, 8 May 2015 12:00:00 -0800
+End: Fri, 8 May 2015 16:30:00 -0800
+Tasks: Finished testing on osu server and all requirements met. updated to not show password
