@@ -106,3 +106,10 @@ if(isset($_GET['rented'])) {
 	} 
 }
 ?>
+<h2>Delete All Videos</h2>
+<form action = 'video_store.php' method = 'post'>
+<input type = 'hidden' name = 'delete_all' value = 1>
+<input type = 'submit' value = 'Delete All'>
+</form>
+
+<h2>Video Store Inventory</h2>
